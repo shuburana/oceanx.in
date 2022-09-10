@@ -1,0 +1,14 @@
+*{
+    box-sizing: border-box;
+}
+
+.header {
+    background: url('F:/workspace/project5/img/bg-5.jpg');
+    background-size:cover;
+    height:100vh;
+
+}
+
+.mask {
+    background-color: rgba(0, 0, 0, 0.5 );
+}
