@@ -59,21 +59,23 @@
 <script>
 
     demo.addEventListener('pointerdown', function(e) {
-        // this.setPointerCapture(e.pointerId);
+        this.setPointerCapture(e.pointerId);
         function printRandom(params) {
             second.innerHTML = `on element ${Math.random()}`;
         }
 
-        this.addEventListener('pointermove', printRandom);
-        
+        if(e.pointerId == 1) this.addEventListener('pointermove', printRandom);
+        if(e.pointerId == 2) alert('hello, world')
+
         this.onmouseup = e => {
             demo.removeEventListener('pointermove', printRandom);
             demo.onmouseup = null;
         }
     })
 
-    container.onpointermove = function() {
-        first.innerHTML = `on document ${Math.random()}`;
+    container.onpointermove = function(e) {
+        if(e.pointerId == 1) first.innerHTML = `on document ${Math.random()}`;
+        if(e.pointerId == 2) alert('hey! there')
     }
 
 </script>
