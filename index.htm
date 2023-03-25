@@ -59,9 +59,13 @@
 <script>
 
     button.addEventListener('pointerdown', function(e) {
-        if(e.pointerId == 1) demo.innerHTML = e.pointerId;
-        if(e.pointerId == 2) demo.innerHTML = e.pointerId;
-        if(e.pointerId == 3) demo.innerHTML = e.pointerId;
+        if(e.isPrimary) {
+            demo.innerHTML = e.pointerId;
+        } else if(e.pointerId == 2) {
+            demo.innerHTML = e.pointerId;
+        } else {
+            demo.innerHTML = e.pointerId;
+        }
     })
 
 </script>
