@@ -43,10 +43,10 @@
 </div>
 </div>
 
-<div id="first"></div>
+<div id="demo"></div>
 <div id="second"></div>
 
-<button id="demo">
+<button id="button">
     click on
 </button>
 
@@ -58,27 +58,11 @@
 
 <script>
 
-    demo.addEventListener('pointerdown', function(e) {
-        this.setPointerCapture(e.pointerId);
-        function printRandom(params) {
-            second.innerHTML = `on element ${Math.random()}`;
-            console.log(e.pointerId)
-        }
-
-        if(e.pointerId == 1) this.addEventListener('pointermove', printRandom);
-        if(e.pointerId == 3) alert('hello, world')
-
-        this.onmouseup = e => {
-            demo.removeEventListener('pointermove', printRandom);
-            demo.onmouseup = null;
-        }
+    button.addEventListener('pointermove', function(e) {
+        if(e.pointerId == 1) demo.innerHTML = e.pointerId;
+        if(e.pointerId == 2) demo.innerHTML = e.pointerId;
+        if(e.pointerId == 3) demo.innerHTML = e.pointerId;
     })
-
-    container.onpointermove = function(e) {
-        if(e.pointerId == 1) first.innerHTML = `on document ${Math.random()}`;
-        console.log(e.pointerId)
-        if(e.pointerId == 3) alert('hey! there')
-    }
 
 </script>
 
