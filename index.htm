@@ -43,9 +43,9 @@
 </div>
 </div>
 
-<div id="demo"></div>
+<div id="first"></div>
 <div id="second"></div>
-
+<div id="third"></div>
 <button id="button">
     click on
 </button>
@@ -62,16 +62,16 @@
     button.addEventListener('pointerdown', function(e) {
         
         if(finger == 'third') {
-            alert('third finger');
+            third.innerHTML = 'third finger';
         } else {
         
         if(finger == 'second') {
-            alert('second finger')
+            second.innerHTML = 'second finger';
             finger = 'third'
         } else {
         
         if(e.pointerId) {
-            alert('first finger')
+            first.innerHTML = 'first finger';
             finger == 'second'
         }
 
