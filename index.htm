@@ -62,16 +62,16 @@
     button.addEventListener('pointerdown', function(e) {
         
         if(finger == 'third') {
-            demo.innerHTML = 'third finger';
+            alert('third finger');
         } else {
         
         if(finger == 'second') {
-            demo.innerHTML = 'second finger';
+            alert('second finger')
             finger = 'third'
         } else {
         
         if(e.pointerId) {
-            demo.innerHTML = 'first finger';
+            alert('first finger')
             finger == 'second'
         }
 
