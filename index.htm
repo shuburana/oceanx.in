@@ -50,27 +50,30 @@
     click on
 </button>
 
+<div id="container">
+
+</div>
+
 </body>
 
 <script>
 
-    demo.addEventListener('pointerdown', e => {
-
-        // this.setPointerCapture(ceae.pointerId);
-        function sayHello(params) {
-            second.innerHTML = Math.ceil(Math.random());
+    demo.addEventListener('pointerdown', function(e) {
+        // this.setPointerCapture(e.pointerId);
+        function printRandom(params) {
+            second.innerHTML = `on element ${Math.random()}`;
         }
 
-        this.addEventListener('pointermove', sayHello);
+        this.addEventListener('pointermove', printRandom);
         
         this.onmouseup = e => {
-            demo.removeEventListener('pointermove', sayHello);
+            demo.removeEventListener('pointermove', printRandom);
             demo.onmouseup = null;
         }
     })
 
-    document.onpointermove = function() {
-        first.innerHTML = Math.floor(Math.random());
+    container.onpointermove = function() {
+        first.innerHTML = `on document ${Math.random()}`;
     }
 
 </script>
