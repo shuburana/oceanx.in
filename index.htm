@@ -58,13 +58,25 @@
 
 <script>
 
+    let finger;
     button.addEventListener('pointerdown', function(e) {
-        if(e.isPrimary) {
-            demo.innerHTML = 'primary';
-        } else if(e.pointerId == 2) {
-            demo.innerHTML = 'secondary';
+        
+        if(finger == 'third') {
+            demo.innerHTML = 'third finger';
         } else {
-            demo.innerHTML = 'third';
+        
+        if(finger == 'second') {
+            demo.innerHTML = 'second finger';
+            finger = 'third'
+        } else {
+        
+        if(e.pointerId) {
+            demo.innerHTML = 'first finger';
+            finger == 'second'
+        }
+
+        }
+
         }
     })
 
