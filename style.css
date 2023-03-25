@@ -16,3 +16,8 @@
 div.intro {
 	font-size: 20px;
 }
+
+#demo {
+    widht: 300px;
+    height: 300px;
+}

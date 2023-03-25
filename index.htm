@@ -43,5 +43,34 @@
     </div>
 </div>
 </div>
+
+<button id="demo">
+    click on
+</button>
+
 </body>
+
+<script>
+
+    demo.addEventListener('pointerdown', e => {
+
+        // this.setPointerCapture(ceae.pointerId);
+        function sayHello(params) {
+            console.log('hello, world')
+        }
+
+        this.addEventListener('pointermove', sayHello);
+        
+        this.onmouseup = e => {
+            demo.removeEventListener('pointermove', sayHello);
+            demo.onmouseup = null;
+        }
+    })
+
+    document.onpointermove = function() {
+        alert('hello, document')
+    }
+
+</script>
+
 </html>
