@@ -60,11 +60,11 @@
 
     button.addEventListener('pointerdown', function(e) {
         if(e.isPrimary) {
-            demo.innerHTML = e.pointerId;
+            demo.innerHTML = 'primary';
         } else if(e.pointerId == 2) {
-            demo.innerHTML = e.pointerId;
+            demo.innerHTML = 'secondary';
         } else {
-            demo.innerHTML = e.pointerId;
+            demo.innerHTML = 'third';
         }
     })
 
