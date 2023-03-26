@@ -60,7 +60,6 @@
 
 button.addEventListener('pointerdown', e => {
     
-    function fun(e) {
         if(e.pointerId == 1) {
             first.innerHTML = `The pointer id is ${e.pointerId}`;
         } else if(e.pointerId == 2) {
@@ -70,13 +69,11 @@ button.addEventListener('pointerdown', e => {
         } else {
             first.innerHTML = `The pointer id is greater than 3`;
         }
-    }
+        
+        button.onmouseup = function() {
+            button.onpointerdown = null;
+        };
 
-    button.addEventListener('pointermove', fun)
-    button.onmouseup = e => {
-        button.removeEventListener('pointermove', fun);
-        button.onmouseup = null;
-    };
 })
 
 </script>
