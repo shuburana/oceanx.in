@@ -58,31 +58,26 @@
 
 <script>
 
-    let finger;
-    button.addEventListener('pointermove', function(e) {
-        
-        if(finger == 'third') {
-            third.innerHTML = 'third finger';
+button.addEventListener('pointerdown', e => {
+    
+    function fun(e) {
+        if(e.pointerId == 1) {
+            first.innerHTML = `The pointer id is ${e.pointerId}`;
+        } else if(e.pointerId == 2) {
+            first.innerHTML = `The pointer id is ${e.pointerId}`;
+        } else if(e.pointerId == 3) {
+            first.innerHTML = `The Pointer id is ${e.pointerId}`
         } else {
-        
-        if(finger == 'second') {
-            second.innerHTML = 'second finger';
-            finger = 'third'
-        } else {
-        
-        if(e.pointerId) {
-            first.innerHTML = 'first finger';
-            finger == 'second'
+            first.innerHTML = `The pointer id is greater than 3`;
         }
+    }
 
-        }
-
-        }
-
-        button.onmouseup = e => {
-            finger = null;
-        }
-    })
+    button.addEventListener('pointermove', fun)
+    button.onmouseup = e => {
+        button.removeEventListener('pointermove', fun);
+        button.onmouseup = null;
+    };
+})
 
 </script>
 
