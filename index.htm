@@ -52,14 +52,11 @@
 
 <script>
 
-    demo.onkeydown = e => {
-      if(msg.innerHTML) msg.innerHTML = '';
-      let val = (e.key >= '0' && e.key <= '9') || ['+', '-', '(', ')', 'ArrowLeft', 'ArrowRight', 'Delete', 'Backspace', 'Alt'].includes(e.key);
-      if(!val) msg.innerHTML = 'only digits allowed';
-      return val; 
-    };
+demo.addEventListener('input', function(e) {
+      let val = (this.value >= '0' && this.value <= '9') || ['+', '-', '(', ')', 'ArrowLeft', 'ArrowRight', 'Delete', 'Backspace', 'Alt'].includes(this.value)
+      if(!val) this.value = '';
+});
   
-
 </script>
 
 </html>
