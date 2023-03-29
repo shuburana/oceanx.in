@@ -43,27 +43,22 @@
 </div>
 </div>
 
-<!-- <div id="first"></div>
-<div id="second"></div>
-<div id="third"></div>
-<button id="button">
-    click on
-</button>
-
-<div id="container">
-
-</div> -->
+<form action="">
+    <input id="demo" placeholder="phone">
+</form>
+<p id="msg"></p>
 
 </body>
 
 <script>
 
-// button.addEventListener('pointerdown', e => {
-    
-//     if(e.pointerType == 'mouse') alert('clicked by mouse')
-//     if(e.pointerType == 'touch') alert('clicked by finger')
-
-// })
+    demo.onkeydown = e => {
+      if(msg.innerHTML) msg.innerHTML = '';
+      let val = (e.key >= '0' && e.key <= '9') || ['+', '-', '(', ')', 'ArrowLeft', 'ArrowRight', 'Delete', 'Backspace', 'Alt'].includes(e.key);
+      if(!val) msg.innerHTML = 'only digits allowed';
+      return val; 
+    };
+  
 
 </script>
 
