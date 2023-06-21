@@ -58,9 +58,11 @@
 <script>
 
     document.documentElement.addEventListener('touchmove', function(e) {
-        for(let i = 0; i < 10000000; i++) {
-            console.log(i)
-        }
+        // for(let i = 0; i < 10000000; i++) {
+        //     console.log(i)
+        // }
+
+        e.preventDefault();
     })
 
 // demo.addEventListener('input', function(e) {
