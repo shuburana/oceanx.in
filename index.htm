@@ -43,29 +43,32 @@
 </div>
 </div>
 
-<p id="demo"></p>
+  <img id="ball" src="https://js.cx/clipart/ball.svg" alt="">
 
-<p id="demo2"></p>
-
-<p id="demo3"></p>
-
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </body>
 
 <script>
   
-  let counter = 0;
-  
-  document.addEventListener('pointerdown', function(e) {
-    demo.innerHTML = `pointerId: ${e.pointerId} <br> isPrimary: ${e.isPrimary} <br> counter: ${counter++} mousedown`;
+  ball.addEventListener('pointerdown', function(e) {
+    this.style.position = 'absolute';
+    this.style.left = e.pageX + 'px';
+    this.style.top = e.pageY + 'px';
+
+    function move(e) {
+      ball.style.left = e.pageX + 'px';
+      ball.style.top = e.pageY + 'px';
+    }
+
+    document.addEventListener('pointermove', move);
+
+    document.onpointerup = e => {
+      document.removeEventListener('pointermove', move);
+    };
+
   })
 
-  document.addEventListener('pointermove', function(e) {
-    demo2.innerHTML = `pointerId: ${e.pointerId} <br> isPrimary: ${e.isPrimary} <br> counter: ${counter++} mousemove`
-  })
-
-  document.addEventListener('pointerup', function(e) {
-    demo3.innerHTML = `pointerId: ${e.pointerId} <br> isPrimary: ${e.isPrimary} <br> counter: ${counter++} mouseup`
-  })
+  ball.ondragstart = () => false
 
 </script>
 
