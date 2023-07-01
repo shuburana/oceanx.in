@@ -49,8 +49,9 @@
 
 <script>
   
+  let counter = 0;
   document.addEventListener('pointerdown', function(e) {
-    demo.innerHTML = `pointerId: ${e.pointerId} <br> isPrimary: ${e.isPrimary} `;
+    demo.innerHTML = `pointerId: ${e.pointerId} <br> isPrimary: ${e.isPrimary} <br> counter: ${counter++}`;
   })
 
 </script>
