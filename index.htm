@@ -43,17 +43,6 @@
 </div>
 </div>
 
-<form action="">
-    <input id="demo" placeholder="phone">
-    <input type="text" name="asd" id="ad">
-    <input type="text">
-    
-</form>
-<p id="msg"></p>
-
-<a id="link" href="https://www.wikipedia.org">click on</a>
-
-
 <p id="demo"></p>
 
 </body>
@@ -61,7 +50,7 @@
 <script>
   
   document.addEventListener('pointerdown', function(e) {
-    demo.innerHTML = `pointerId: ${e.pointerId} <br> isPrimary ${e.isPrimary}`;
+    demo.innerHTML = `pointerId: ${e.pointerId} <br> isPrimary: ${e.isPrimary}`;
   })
 
 </script>
