@@ -51,30 +51,19 @@
 </form>
 <p id="msg"></p>
 
-
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nihil reiciendis ratione facilis dolorem expedita omnis vero tempora. Eveniet, atque. Esse ab sapiente soluta magni vel alias aperiam rerum modi. Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit voluptates vel at eaque consequatur unde inventore saepe optio in! Pariatur libero molestiae soluta, numquam suscipit consequatur voluptas molestias aliquid unde! Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sit quas eum hic dolorum, unde expedita dolore natus adipisci eveniet odit, aliquam totam debitis. Vel, voluptate quidem. Necessitatibus sed id similique. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Labore incidunt cumque, quis id quaerat officiis delectus, ipsam illo doloribus nihil at inventore voluptatibus? Nobis velit praesentium numquam sapiente! Veniam, dicta. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam aperiam, error nam odit cumque recusandae asperiores facilis temporibus quae placeat tenetur sapiente optio? Error quibusdam distinctio eaque! Quas, quo non! Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla temporibus voluptatum soluta. Autem earum deserunt corrupti libero, quibusdam illum quaerat cumque voluptatibus maxime architecto ea ab quidem! Ipsam, illo ducimus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit veritatis aliquam architecto! Repellat aliquam magnam tenetur ea nesciunt, magni facilis tempore ab sed cupiditate nihil dolore ut illo quas voluptatum? Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores dolore ipsum ratione porro non amet officiis molestiae, maiores nihil, quam minima delectus explicabo nam qui? Omnis tempore ipsa vitae magnam. Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt, ipsum, magni quo quae ab, rem debitis tenetur nihil expedita repellat voluptatum. Tempora rerum dolor voluptates ut obcaecati? Quidem, quam suscipit. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illo, velit! Repudiandae suscipit, libero maiores fugiat ipsum ut quibusdam dolor sed expedita labore magnam numquam illum voluptatibus accusamus neque alias amet? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ea cum reiciendis animi, hic qui neque provident esse! Autem numquam excepturi exercitationem! Blanditiis suscipit veritatis iure nisi harum, quis natus? Voluptates. Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi deserunt, illum veniam reprehenderit repudiandae ex. Voluptate illo iste eos dolorum tenetur. Excepturi suscipit omnis hic incidunt porro reiciendis, quod inventore. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit totam magnam cupiditate vel vitae laboriosam voluptas cumque culpa commodi debitis impedit quos veritatis libero aspernatur nostrum, eum labore obcaecati. Ipsa! Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aut placeat qui illo atque ipsa in quisquam, et exercitationem temporibus amet numquam quidem omnis, laboriosam at, rem quam nam commodi! Laboriosam. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Et ea recusandae voluptatem praesentium, voluptatibus tenetur dignissimos. Quo reiciendis explicabo labore sint pariatur nisi magni perferendis nihil voluptate! Quidem, ut odio! Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus ea non libero dicta quam molestias ad? Id, debitis eveniet quae non reiciendis repudiandae recusandae aut sunt quasi sapiente maxime suscipit? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem quasi ullam ipsum sed, voluptate, tempora pariatur quidem error impedit harum in? Eius nulla, consectetur quasi dolores nobis earum fuga unde? Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti, et! Odit laborum numquam ipsa aut asperiores dicta dignissimos corrupti odio quibusdam. Voluptatum repellat et esse exercitationem, veritatis perspiciatis temporibus qui! Lorem ipsum dolor sit amet consectetur, adipisicing elit. Modi, repellendus? Sapiente minima officiis ut sit, expedita suscipit perferendis ullam fugiat fuga nesciunt necessitatibus nisi, ea exercitationem molestiae totam dolorem dolore! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum ea nesciunt explicabo reprehenderit dignissimos omnis sed quo delectus natus officiis adipisci inventore maiores, culpa repellendus modi debitis dolores distinctio vitae. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Incidunt, delectus ab laudantium rerum quod perspiciatis odit amet. Quaerat, voluptates facere, ducimus voluptatem pariatur dolorum, consectetur adipisci maxime repellendus cumque eos? Lorem ipsum, dolor sit amet consectetur adipisicing elit. Assumenda placeat corrupti alias soluta, maxime excepturi, magni nam delectus atque hic facere, aliquid voluptatum pariatur fuga repudiandae fugiat ea cumque qui. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Deleniti exercitationem nisi iusto praesentium id itaque obcaecati incidunt eveniet. Eius, consequatur voluptatum? Quia, fuga exercitationem numquam reiciendis sunt assumenda laborum magnam?</p>
-
 <a id="link" href="https://www.wikipedia.org">click on</a>
+
+
+<p id="demo"></p>
+
 </body>
 
 <script>
-
-    link.addEventListener('click', function(e) {
-        for(let i = 0; i < 100000; i++) {
-            let div = document.createElement('div');
-            div.innerHTML = 'hello, world';
-            div.style.cssText = `border: 1px solid black; padding: 5px; background-color: green; border-radius: 10px;`;
-            document.body.append(div);
-        }
-
-        e.preventDefault();
-    })
-
-// demo.addEventListener('input', function(e) {
-//       let val = (this.value >= '0' && this.value <= '9') || ['+', '-', '(', ')', 'ArrowLeft', 'ArrowRight', 'Delete', 'Backspace', 'Alt'].includes(this.value)
-//       if(!val) this.value = '';
-// });
   
+  document.addEventListener('pointerdown', function(e) {
+    demo.innerHTML = `pointerId: ${e.pointerId} <br> isPrimary ${e.isPrimary}`;
+  })
+
 </script>
 
 </html>
