@@ -68,6 +68,7 @@
     return ((key >= '0' && key <= '9') || ['{', '+', '-', 'Backspace', 'space', 'Delete', 'ArrowRight', 'ArrowLeft'].includes(key)) ? true : false;
   }
 
+  input.onkeydown = e => false;
 </script>
 
 </html>
