@@ -50,25 +50,13 @@
 
 <script>
   
-  ball.addEventListener('pointerdown', function(e) {
-    this.style.position = 'absolute';
-    this.style.left = e.pageX + 'px';
-    this.style.top = e.pageY + 'px';
-
-    function move(e) {
-      ball.style.left = e.pageX + 'px';
-      ball.style.top = e.pageY + 'px';
-    }
-
-    document.addEventListener('pointermove', move);
-
-    document.onpointerup = e => {
-      document.removeEventListener('pointermove', move);
-    };
-
-  })
-
-  ball.ondragstart = () => false
+  input.onkeydown = e => {
+    if(!checkPhoneKey(e.key)) e.preventDefault();
+  };
+  
+  function checkPhoneKey(key) {
+    return ((key >= '0' && key <= '9') || ['{', '+', '-', 'Backspace', 'space', 'Delete', 'ArrowRight', 'ArrowLeft'].includes(key)) ? true : false;
+  }
 
 </script>
 
