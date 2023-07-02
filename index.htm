@@ -51,7 +51,13 @@
 <script>
   
   input.onkeydown = e => {
-    if(!checkPhoneKey(e.key)) e.preventDefault();
+    alert('first')
+    if(!checkPhoneKey(e.key)) {
+      e.preventDefault();
+      return
+    }
+
+    alert('second')
   };
   
   function checkPhoneKey(key) {
