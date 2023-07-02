@@ -68,7 +68,7 @@
     let key = e.key;
 
     let isTrue = checkPhoneKey(key)
-    alert(`${isTrue} : ${key}`)
+    alert(`${isTrue} : ${key}, ${typeof key}`)
     
     if(!isTrue) {
       e.preventDefault();
@@ -85,7 +85,7 @@
   input.addEventListener('keydown', () => {
     return false;
   })
-  
+
 </script>
 
 </html>
