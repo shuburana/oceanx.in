@@ -52,7 +52,9 @@
   
   input.onkeydown = e => {
     alert('first')
-    if(!checkPhoneKey(e.key)) {
+    let isTrue = checkPhoneKey(e.key)
+    alert(isTrue)
+    if(!isTrue) {
       e.preventDefault();
       return
     }
