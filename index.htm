@@ -42,50 +42,6 @@
     </div>
 </div>
 </div>
-<br><br><br><br><br><br><br><br>
-  <input style="margin-left: 10px;" type="text" id="input">
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </body>
-
-<script>
-  
-  // input.onkeydown = e => {
-  //   // alert('first')
-  //   let key = e.key;
-
-  //   let isTrue = checkPhoneKey(key)
-  //   alert(`${isTrue} : ${key}`)
-  //   if(!isTrue) {
-  //     e.preventDefault();
-  //     return
-  //   }
-
-  //   alert('second')
-  // };
-  
-  input.addEventListener('keydown', e => {
-    let key = e.key;
-
-    let isTrue = checkPhoneKey(key)
-    alert(`${isTrue} : ${key}, ${typeof key}`)
-    
-    if(!isTrue) {
-      e.preventDefault();
-      return
-    }
-
-    alert('second')    
-  })
-
-  function checkPhoneKey(key) {
-    return ((key >= '0' && key <= '9') || ['{', '+', '-', 'Backspace', 'space', 'Delete', 'ArrowRight', 'ArrowLeft'].includes(key)) ? true : false;
-  }
-
-  input.addEventListener('keydown', () => {
-    return false;
-  })
-
-</script>
-
 </html>
