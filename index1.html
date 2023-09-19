@@ -1,0 +1,103 @@
+<html>
+    <head>
+
+    </html>
+        
+    <body>
+
+        <textarea name="" id="textarea" cols="30" rows="10" placeholder="write here..."></textarea>
+        <p id="demo"></p>
+        <button id="button">clear</button>
+
+        <input type="text" id="input">
+    </body>
+
+    <script>
+        
+        indexedDB.deleteDatabase('store');
+        
+        let openRequest = indexedDB.open('store', 1);
+
+        openRequest.onupgradeneeded = e => {
+            console.log('opend request')
+            let db = openRequest.result;
+
+            if(!db.objectStoreNames.contains('store')) {
+                db.createObjectStore('store', {keyPath: 'id'})
+            }
+        };
+
+        openRequest.onsuccess = e => {
+            console.log('connection established successfully');
+
+            let db = openRequest.result;
+                        
+            let transaction = db.transaction('store', 'readwrite');
+            
+            let store = transaction.objectStore('store');
+
+            let items = {};
+
+            let item1 = {
+                grocery : false,
+                id: 'id',
+                software: true,
+                computers: true,
+                hardwares: true
+            };
+
+            let item2 = {
+                id: 'other',
+                price: 10
+            };
+
+            let item3 = {
+                id: 'item3',
+                price: 20
+            }
+
+            items.item1 = item1;
+            items.item2 = item2;
+            items.item3 = item3;
+            
+            let request;
+
+            let arrItems = Object.keys(items);
+
+            for(let val of arrItems) {
+                store.add(val);
+            }
+
+            request.onsuccess = e => {
+                console.log(request.result)
+            };
+
+            request.onerror = e => {
+                console.log(`error occurred while adding items to store: ${request.error}`);
+                
+                if(request.error.name == 'ConstraintError') {
+                    console.log(`Book with same id already exits`)
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                } else {
+                    console.log(`unexpected error`)
+                }
+            };
+
+            transaction.onabort = e => {
+                console.log(`action aborted`)
+            }
+            
+            transaction.oncomplete = e => {
+                db.close();
+            }
+        };
+
+        openRequest.onerror = e => {
+            console.log('error occurred')
+        };
+
+    </script>
+
+</html>
