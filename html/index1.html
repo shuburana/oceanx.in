@@ -15,6 +15,11 @@
 
     <script>
 
+        // ** The concept this code is trying to empasize is that we're not goint inside
+        // of event handler on 28 but instead we are calling only one hander again and again
+        // for avoiding nested call and we're checking in every 1 second whether the 
+        // handler executed or not. If yes then we proceed to next request **
+
         function loadContent(input) {
             let file = input.files[0];
 
@@ -22,53 +27,31 @@
             
             let done = false;
 
+            // **
             reader.onload = function() {
                 console.log(this.result);
                 done = true;
             }    
 
             reader.readAsArrayBuffer(file);
-            
-            let arr = [reader.readAsText, reader.readAsDataURL];
-            
-            // let index = 0;
-            // let timer = setInterval(() => {
-            //     if(done) {
-            //         arr[index](file);
-            //         index++;
-            //         done = false;
+
+            let arr = ['readAsText', 'readAsDataURL'];
+
+            let index = 0;
+
+            // **
+            let timer = setInterval(() => {
+                if(done) {
+                    reader[arr[index]](file);
+                    index++;
+                    done = false;
                     
-            //         if(index == arr.length) clearInterval(timer);
-            //     }
+                    if(index == arr.length) clearInterval(timer);
+                }
 
-            // }, 1000)
+            }, 1000)
             
-            // reader.readAsText(file);
-            // reader.readAsDataURL(file);
-
-            // file.arrayBuffer().then(buffer => {
-            //     let view = new Uint8Array(buffer);
-            //     let text = new TextDecoder().decode(view)
-            //     console.log(text)
-            // })
-
         }        
-        // let blob = new Blob([new Uint8Array([65, 66, 67, 68]), ' hello, world'], {type: 'text/plain'});
-
-        // blob.arrayBuffer().then(buffer => {
-        //     let view8 = new Uint8Array(buffer);
-        //     console.log(view8)
-        //     let text = new TextDecoder().decode(view8);
-        //     console.log(text);
-        // })
-
-        // let reader = new FileReader();
-
-        // reader.onload = function(e) {
-        //     console.log(reader.result)
-        // }
-
-        // reader.readAsDataURL(blob);
         
     </script>
     
