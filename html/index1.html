@@ -11,27 +11,64 @@
 
     <body>
         
-        <input onchange="f(this)" type="file">
+        <input onchange="loadContent(this)" type="file">
 
     <script>
 
-        
-        let blob = new Blob([new Uint8Array([65, 66, 67, 68]), ' hello, world'], {type: 'text/plain'});
+        function loadContent(input) {
+            let file = input.files[0];
 
-        blob.arrayBuffer().then(buffer => {
-            let view8 = new Uint8Array(buffer);
-            console.log(view8)
-            let text = new TextDecoder().decode(view8);
-            console.log(text);
-        })
+            let reader = new FileReader();
+            
+            let done = false;
 
-        let reader = new FileReader();
+            reader.onload = function() {
+                console.log(this.result);
+                done = true;
+            }    
 
-        reader.onload = function(e) {
-            console.log(reader.result)
-        }
+            reader.readAsArrayBuffer(file)
+            
+            let arr = [reader.readAsText, reader.readAsDataURL];
+            
+            // let index = 0;
+            // let timer = setInterval(() => {
+            //     if(done) {
+            //         arr[index](file);
+            //         index++;
+            //         done = false;
+                    
+            //         if(index == arr.length) clearInterval(timer);
+            //     }
 
-        reader.readAsDataURL(blob);
+            // }, 1000)
+            
+            // reader.readAsText(file);
+            // reader.readAsDataURL(file);
+
+            // file.arrayBuffer().then(buffer => {
+            //     let view = new Uint8Array(buffer);
+            //     let text = new TextDecoder().decode(view)
+            //     console.log(text)
+            // })
+
+        }        
+        // let blob = new Blob([new Uint8Array([65, 66, 67, 68]), ' hello, world'], {type: 'text/plain'});
+
+        // blob.arrayBuffer().then(buffer => {
+        //     let view8 = new Uint8Array(buffer);
+        //     console.log(view8)
+        //     let text = new TextDecoder().decode(view8);
+        //     console.log(text);
+        // })
+
+        // let reader = new FileReader();
+
+        // reader.onload = function(e) {
+        //     console.log(reader.result)
+        // }
+
+        // reader.readAsDataURL(blob);
         
     </script>
     
