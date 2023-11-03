@@ -1,0 +1,51 @@
+<html>
+    <head>
+    
+    <style>
+        #canvas {
+            border: 1px solid black;
+        }
+
+        
+    </style>
+    
+<head>
+
+    <body>
+    
+        <canvas id="canvas"></canvas>
+    
+    <script>
+    
+        canvas.onmousedown = function(e) { 
+            let ctx = canvas.getContext('2d');
+            ctx.beginPath();
+            
+            function MouseMove(e) {
+                ctx.lineTo(e.clientX, e.clientY)
+                ctx.stroke();
+            }
+
+            this.addEventListener('mousemove', MouseMove);
+            
+            this.onmouseup = function(e) {
+                this.removeEventListener('mousemove', MouseMove);
+                this.onmouseup = null;
+            };
+        };
+
+        // let ctx = canvas.getContext('2d');
+        //         ctx.beginPath();
+        //         ctx.moveTo(0, 0);
+        //         ctx.lineTo(100, 200)
+        //         ctx.stroke();
+
+
+    </script>
+
+    <style>
+    </style>    
+    
+</body>
+
+</html>
