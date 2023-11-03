@@ -3,7 +3,10 @@
     
     <style>
         
-
+        #link {
+            text-decoration: none;
+            color: black;
+        }
     
     </style>
     
@@ -13,49 +16,78 @@
         
         <input onchange="loadContent(this)" type="file">
 
+        <p id="demo"></p>
+        
+        <button onclick="createRepo()" id="createRepo">createRepo</button>
+        <button onclick="deleteRepo()" id="deleteRepo">deleteRepo</button><br><br>
+
+        <canvas id="myElement" width="200" height="200"></canvas><br><br>
     <script>
+        
+        let githubToken = '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';
+        
+        async function createRepo() {
+            let repo = prompt('Enter the name of repo you want to create')
+            if(!repo) return;
 
-        // ** The concept this code is trying to empasize is that we're not goint inside
-        // of event handler on 28 but instead we are calling only one hander again and again
-        // for avoiding nested call and we're checking in every 1 second whether the 
-        // handler executed or not. If yes then we proceed to next request **
+            let repoData = {
+                name: repo,
+                description: 'another test repo by http',
+            }
 
-        function loadContent(input) {
-            let file = input.files[0];
-
-            let reader = new FileReader();
+            let response = await fetch('https://api.github.com/user/repos', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `token ${githubToken}`,
+                    'Accept': 'application/vnd.github.v3+json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(repoData)
+            });
             
-            let done = false;
+            if(response.ok) {
+                let obj = await response.json();
+                console.log(obj);
 
-            // **
-            reader.onload = function() {
-                console.log(this.result);
-                done = true;
-            }    
+                console.log(JSON.stringify(obj))
+            } else {
+                console.log(response.status)
+            }
 
-            reader.readAsArrayBuffer(file);
+        }
+        
+        async function deleteRepo() {
+            let repo = prompt('enter the name of repo you want to delete')
+            if(!repo) return;
 
-            let arr = ['readAsText', 'readAsDataURL'];
-
-            let index = 0;
-
-            // **
-            let timer = setInterval(() => {
-                if(done) {
-                    reader[arr[index]](file);
-                    index++;
-                    done = false;
-                    
-                    if(index == arr.length) clearInterval(timer);
+            let response = await fetch(`https://api.github.com/repos/shuburana/${repo}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `token ${githubToken}`
                 }
+            });
 
-            }, 1000)
-            
-        }        
+            if(response.ok) {
+                // let obj = await response.json();
+                console.log(response);
+            } else {
+                console.log(response.status)
+            }
+        }
+    
+        let canvas = document.createElement('canvas');
+        canvas.id = 'myCanvas';
+        canvas.width = 250;
+        canvas.height = 250;
+        document.body.append(canvas)
         
     </script>
     
     <style>
+        
+        #myElement, #myCanvas {
+            border: 1px solid black;
+        }
 
     </style>    
     
