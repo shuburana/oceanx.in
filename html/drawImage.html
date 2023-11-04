@@ -4,9 +4,8 @@
     <style>
         #canvas {
             border: 1px solid black;
-        }
-
-        
+            /* cursor:crosshair */
+        }        
     </style>
     
 <head>
@@ -14,15 +13,18 @@
     <body>
     
         <canvas id="canvas"></canvas>
-    
+        <input id="submit" onclick="submit()" type="submit">
+
     <script>
-    
+
+        let githubToken = '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';
+
         canvas.onmousedown = function(e) { 
             let ctx = canvas.getContext('2d');
             ctx.beginPath();
-            
+
             function MouseMove(e) {
-                ctx.lineTo(e.clientX, e.clientY)
+                ctx.lineTo(e.clientX, e.clientY);
                 ctx.stroke();
             }
 
@@ -34,12 +36,26 @@
             };
         };
 
-        // let ctx = canvas.getContext('2d');
-        //         ctx.beginPath();
-        //         ctx.moveTo(0, 0);
-        //         ctx.lineTo(100, 200)
-        //         ctx.stroke();
+        submit.onclick = async function(e) {
+            let imgBlob = await new Promise(res => canvas.toBlob(res, 'image/jpeg'));
+            let response = await fetch('https://api.github.com/repos/shuburana/testRepo/contents/testRepo/image', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `token ${githubToken}`,
+                    'Accept': 'application/vnd.github.v3+json',
+                },
+                body: imgBlob
+            });
 
+            if(response.ok) {
+                console.log(response.status)
+
+                let result = await response.json();
+                console.log(result.message)
+            } else {
+                console.log('error ' + response.status)
+            }
+        };
 
     </script>
 

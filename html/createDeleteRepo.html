@@ -13,18 +13,13 @@
 <head>
 
     <body>
-        
-        <input onchange="loadContent(this)" type="file">
-
-        <p id="demo"></p>
-        
+                
         <button onclick="createRepo()" id="createRepo">createRepo</button>
         <button onclick="deleteRepo()" id="deleteRepo">deleteRepo</button><br><br>
 
-        <canvas id="myElement" width="200" height="200"></canvas><br><br>
     <script>
         
-        let githubToken = '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';
+        let githubToken = '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';
         
         async function createRepo() {
             let repo = prompt('Enter the name of repo you want to create')
@@ -75,20 +70,11 @@
             }
         }
     
-        let canvas = document.createElement('canvas');
-        canvas.id = 'myCanvas';
-        canvas.width = 250;
-        canvas.height = 250;
-        document.body.append(canvas)
         
     </script>
     
     <style>
-        
-        #myElement, #myCanvas {
-            border: 1px solid black;
-        }
-
+    
     </style>    
     
 </body>
