@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <!-- <h1>index.html</h1>
+    <button onclick="addItems()">addItems</button>
+    -->
+    
+    <form action="">
+        <textarea name="" id="txtarea" cols="30" rows="10"></textarea>
+    </form>
+
+    <button onclick="createDatabase()">createDatabase</button>
+    <button onclick="deleteObjectStore()">deleteObjectStore</button>
+    <script>
+        // let x = indexedDB.deleteDatabase('db');
+        
+        let objectStoreCreated = false;
+        let itemsAdded = false;
+
+        function deleteObjectStore(params) {
+            let request = indexedDB.open('db', 2);
+
+            request.onupgradeneeded = function() {
+                let db = this.result;
+
+                db.deleteObjectStore('games');
+                console.log('deleted')
+            }
+        }
+
+        function createDatabase(params) {
+            let request = indexedDB.open('db', 1);
+
+            request.onupgradeneeded = function(e) {
+                let db = this.result;
+                if(!objectStoreCreated) {
+                    db.createObjectStore('games', {keyPath:'cds'});
+                    objectStoreCreated = true;
+                }
+                console.log('successfully created');
+            }
+
+            request.onsuccess = function(e) {
+                let db = this.result;
+                
+                db.onversionchange = function(e) {
+                    this.close();
+                    console.log('Database is outdated, please reload');
+                };
+
+                let transaction = db.transaction('games', 'readwrite');
+                
+                transaction.oncomplete = function (params) {
+                    console.log('Transaction completed successfully')
+                }
+                
+                let store = transaction.objectStore('games');
+
+                function onSuccess(e) {
+                    console.log('game added to store: ' + this.result);
+                }
+
+                function onError(e) {
+                    console.log('error ' + e.error)
+                }
+
+                function addItems(items) {
+                    for(let item in items) {
+                        console.log(typeof item);
+                        let request = store.add(items[item]);
+                        
+                        request.onsuccess = onSuccess;
+                        request.onerror = onError;
+                    }
+                }
+
+                if(!itemsAdded) {
+                    let items = {
+                        first : {
+                            cds: 'callofduty',
+                            price: 123,
+                            created: new Date()
+                        },
+                        second : {
+                            cds: 'asphalt',
+                            price: 122,
+                            created: new Date()
+                        },
+                        third : {
+                            cds: 'whycity',
+                            price: 121,
+                            created: new Date()
+                        }
+                    }
+                    
+                    addItems(items);
+                    itemsAdded = true;
+
+                } else {
+
+                }
+                
+                transaction.onabort = function name(e) {
+                    console.log('transaction aborted');
+                };
+            };
+
+            request.onerror = function(e) {
+                if(this.error.name == 'ConstraintError') {
+                    console.log(error);
+                    e.preventDefault();
+                }
+            };
+
+            request.onblocked = function(e) {
+                console.log('you did\'t closed the old connection, please close the older one then reload the page')
+            };
+        }
+
+    </script>
+</body>
+</html>
