@@ -2,11 +2,11 @@
     <head>
     
     <style>
+        
         #canvas {
             border: 1px solid black;
         }
 
-        
     </style>
     
 <head>
@@ -16,7 +16,7 @@
         <canvas id="canvas"></canvas>
     
     <script>
-    
+        
         canvas.onmousedown = function(e) { 
             let ctx = canvas.getContext('2d');
             ctx.beginPath();
@@ -33,12 +33,6 @@
                 this.onmouseup = null;
             };
         };
-
-        // let ctx = canvas.getContext('2d');
-        //         ctx.beginPath();
-        //         ctx.moveTo(0, 0);
-        //         ctx.lineTo(100, 200)
-        //         ctx.stroke();
 
 
     </script>
