@@ -17,6 +17,11 @@
 
     <button onclick="createDatabase()">createDatabase</button>
     <button onclick="deleteObjectStore()">deleteObjectStore</button>
+    <button onclick="searchByKey()">searchByKey</button>
+    <button onclick="searchByPrice()">searchByPrice</button>
+    <button id="byKey">deleteByKey</button>
+    <button id="byPrice">deleteByPrice</button>
+
     <script>
         // let x = indexedDB.deleteDatabase('db');
         
@@ -40,7 +45,8 @@
             request.onupgradeneeded = function(e) {
                 let db = this.result;
                 if(!objectStoreCreated) {
-                    db.createObjectStore('games', {keyPath:'cds'});
+                    let games = db.createObjectStore('games', {keyPath:'cds'});
+                    let index = games.createIndex('price_idx', 'price')
                     objectStoreCreated = true;
                 }
                 console.log('successfully created');
@@ -61,7 +67,33 @@
                 }
                 
                 let store = transaction.objectStore('games');
+                
+                function deleteByKey(params) {
+                    let req = store.delete('asphalt')
+                    req.onsuccess = function(e) {
+                        console.log('deleted successfully')
+                    };
 
+                    req.onerror = function(e) {
+                        console.log('error in deleting')
+                    };
+
+                }
+
+                function deleteByPrice(params) {
+                    let priceIndex = store.index('price_idx');
+                    let req = priceIndex.getKey(121);
+
+                    req.onsuccess = function(e) {
+                        let key = this.result;
+                        let deleteReq = store.delete(key)
+                        console.log('deleted successfully')
+                    }
+                }
+
+                byKey.onclick = deleteByKey;
+                byPrice.onclick = deleteByPrice;
+                
                 function onSuccess(e) {
                     console.log('game added to store: ' + this.result);
                 }
@@ -96,6 +128,11 @@
                             cds: 'whycity',
                             price: 121,
                             created: new Date()
+                        },
+                        fourth: {
+                            cds: 'motogp',
+                            price: 121,
+                            created: new Date()
                         }
                     }
                     
@@ -123,6 +160,41 @@
             };
         }
 
-    </script>
+        function printValues(parameter) {
+            let request1 = indexedDB.open('db', 1);
+
+            request1.onsuccess = function(e) {
+                let db = this.result;
+                let transaction = db.transaction('games', 'readonly');
+                let games = transaction.objectStore('games');
+                let priceIndex = games.index('price_idx');
+
+                let request2;
+                if(parameter == 'byKey') request2 = games.getAll();
+                if(parameter == 'byPrice') request2 = priceIndex.getAll(121);
+
+                request2.onsuccess = function(e) {
+                    if(request2.result !== 'undefined') {
+                        console.log(this.result);
+                    } else {
+                        console.log('soory no games found')
+                    }
+                };
+
+                request2.onerror = function (e) {
+                    console.log('error in retreiving the data')
+                }
+            }
+        }
+
+        function searchByKey() {
+            printValues('byKey')
+        }
+
+        function searchByPrice(params) {
+            printValues('byPrice')
+        }
+
+</script>
 </body>
 </html>
