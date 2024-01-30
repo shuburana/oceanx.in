@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html>
+<body>
+
+  <ul>
+    <li>Animals
+      <ul>
+        <li>Mammals
+          <ul>
+            <li>Cows</li>
+            <li>Donkeys</li>
+            <li>Dogs</li>
+            <li>Tigers</li>
+          </ul>
+        </li>
+        <li>Other
+          <ul>
+            <li>Snakes</li>
+            <li>Birds</li>
+            <li>Lizards</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>Fishes
+      <ul>
+        <li>Aquarium
+          <ul>
+            <li>Guppy</li>
+            <li>Angelfish</li>
+          </ul>
+        </li>
+        <li>Sea
+          <ul>
+            <li>Sea trout</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+  <script>
+
+    // putting function in the document(HTMLDocument) class's prototype if we want the function
+    // to be acceptable in the whole document 
+
+    HTMLDocument.prototype.ownQuerySelectorAll = function(tag) {
+      let children = this.children;
+      let elems = [];
+      
+      function recurFun(children) {
+        if(children.length == 0) return;
+
+        for(let child of children) {
+        
+          if(child.tagName == tag.toUpperCase()) {
+            elems.push(child);
+            recurFun(child.children)
+          } else {
+            recurFun(child.children)
+          }
+        }        
+      }
+
+      recurFun(children)
+      return elems;
+    }
+
+    console.log(document.ownQuerySelectorAll('ul').length, document.querySelectorAll('ul').length)
+
+  </script>
+
+</body>
+</html>
