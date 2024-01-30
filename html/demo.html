@@ -7,37 +7,21 @@
 </head>
 <body>
     
-    <!-- <h1>index.html</h1>
-    <button onclick="addItems()">addItems</button>
-    -->
-    
-    <form action="">
-        <textarea name="" id="txtarea" cols="30" rows="10"></textarea>
-    </form>
-
     <button onclick="createDatabase()">createDatabase</button>
-    <button onclick="deleteObjectStore()">deleteObjectStore</button>
+    <button onclick="deleteStore()">deleteObjectStore</button>
     <button onclick="searchByKey()">searchByKey</button>
     <button onclick="searchByPrice()">searchByPrice</button>
-    <button id="byKey">deleteByKey</button>
-    <button id="byPrice">deleteByPrice</button>
+    <button onclick="deleteDatabase()">deleteDatabase</button>
+    <button onclick="byKey('callofduty')">deleteByKey</button>
+    <button onclick="byPrice(121)">deleteByPrice</button>
+    <button onclick="getUsingCursor()">getUsingCursor</button>
 
     <script>
-        // let x = indexedDB.deleteDatabase('db');
         
         let objectStoreCreated = false;
         let itemsAdded = false;
-
-        function deleteObjectStore(params) {
-            let request = indexedDB.open('db', 2);
-
-            request.onupgradeneeded = function() {
-                let db = this.result;
-
-                db.deleteObjectStore('games');
-                console.log('deleted')
-            }
-        }
+        let byKey;
+        let byPrice;
 
         function createDatabase(params) {
             let request = indexedDB.open('db', 1);
@@ -49,10 +33,10 @@
                     let index = games.createIndex('price_idx', 'price')
                     objectStoreCreated = true;
                 }
-                console.log('successfully created');
             }
 
             request.onsuccess = function(e) {
+                
                 let db = this.result;
                 
                 db.onversionchange = function(e) {
@@ -60,52 +44,34 @@
                     console.log('Database is outdated, please reload');
                 };
 
-                let transaction = db.transaction('games', 'readwrite');
-                
-                transaction.oncomplete = function (params) {
-                    console.log('Transaction completed successfully')
-                }
-                
-                let store = transaction.objectStore('games');
-                
-                function deleteByKey(params) {
-                    let req = store.delete('asphalt')
-                    req.onsuccess = function(e) {
-                        console.log('deleted successfully')
-                    };
-
-                    req.onerror = function(e) {
-                        console.log('error in deleting')
-                    };
-
-                }
-
-                function deleteByPrice(params) {
-                    let priceIndex = store.index('price_idx');
-                    let req = priceIndex.getKey(121);
-
-                    req.onsuccess = function(e) {
-                        let key = this.result;
-                        let deleteReq = store.delete(key)
-                        console.log('deleted successfully')
+                function getStore(params) {
+                    let transaction = db.transaction('games', 'readwrite');
+                    
+                    transaction.oncomplete = function (params) {
+                        console.log('Transaction completed successfully')
                     }
-                }
+                    
+                    transaction.onabort = function name(e) {
+                        console.log('transaction aborted');
+                    };
 
-                byKey.onclick = deleteByKey;
-                byPrice.onclick = deleteByPrice;
-                
+                    return transaction.objectStore('games');
+                }
+                                                
                 function onSuccess(e) {
                     console.log('game added to store: ' + this.result);
                 }
 
                 function onError(e) {
-                    console.log('error ' + e.error)
+                    // console.log('error ' + e.error)
+                    for(let key in e) {
+                        console.log(key, e[key]);
+                    }
                 }
 
                 function addItems(items) {
                     for(let item in items) {
-                        console.log(typeof item);
-                        let request = store.add(items[item]);
+                        let request = getStore().add(items[item]);
                         
                         request.onsuccess = onSuccess;
                         request.onerror = onError;
@@ -115,23 +81,23 @@
                 if(!itemsAdded) {
                     let items = {
                         first : {
-                            cds: 'callofduty',
-                            price: 123,
+                            cds: 'a',
+                            price: 1,
                             created: new Date()
                         },
                         second : {
-                            cds: 'asphalt',
-                            price: 122,
+                            cds: 'b',
+                            price: 1,
                             created: new Date()
                         },
                         third : {
-                            cds: 'whycity',
-                            price: 121,
+                            cds: 'c',
+                            price: 2,
                             created: new Date()
                         },
                         fourth: {
-                            cds: 'motogp',
-                            price: 121,
+                            cds: 'd',
+                            price: 3,
                             created: new Date()
                         }
                     }
@@ -142,10 +108,45 @@
                 } else {
 
                 }
-                
-                transaction.onabort = function name(e) {
-                    console.log('transaction aborted');
-                };
+                            
+                function deleteByKey(key) {
+                    let deleteReq = getStore().delete(key);
+
+                    deleteReq.onsuccess = function(e) {
+                        console.log('deleted successfully')
+                    };
+
+                    deleteReq.onerror = function(e) {
+                        console.log('error in deleting')
+                    };
+                }
+
+                function deleteByPrice(price) { 
+                    let priceIndex = getStore().index('price_idx');
+                    let req = priceIndex.getKey(price);
+
+                    req.onsuccess = function(e) {
+                        let key = this.result;
+                        let deleteReq = getStore().delete(key)
+                        
+                        deleteReq.onsuccess = function(e) {
+                            console.log('deleted successfully')
+                        }
+
+                        deleteReq.onerror = function(e) {
+                            console.log('error in deleting')
+                        }
+                    }
+                }
+
+                byKey = function(key) {
+                    deleteByKey(key);
+                }
+
+                byPrice = function(price) {
+                    deleteByPrice(price);
+                }
+            
             };
 
             request.onerror = function(e) {
@@ -158,13 +159,25 @@
             request.onblocked = function(e) {
                 console.log('you did\'t closed the old connection, please close the older one then reload the page')
             };
+
+        }
+
+        function deleteDatabase(params) {
+            indexedDB.deleteDatabase('db');
+            console.log('database deleted successfully');
         }
 
         function printValues(parameter) {
-            let request1 = indexedDB.open('db', 1);
+            let request1 = indexedDB.open('db', 2);
+            console.log(request1, 'executed');
 
             request1.onsuccess = function(e) {
                 let db = this.result;
+                
+                db.onversionchange = function(e) {
+                    this.close('old version closed');
+                };
+
                 let transaction = db.transaction('games', 'readonly');
                 let games = transaction.objectStore('games');
                 let priceIndex = games.index('price_idx');
@@ -187,6 +200,17 @@
             }
         }
 
+        function deleteStore(params) {
+            let request = indexedDB.open('db', 2);
+            
+            request.onupgradeneeded = function(e) {
+                let db = this.result;
+                let deleteReq = db.deleteObjectStore('games');
+                
+                console.log('object store deleted successfully')
+            }
+        }
+
         function searchByKey() {
             printValues('byKey')
         }
@@ -194,6 +218,220 @@
         function searchByPrice(params) {
             printValues('byPrice')
         }
+        
+        function getUsingCursor(params) {
+            let request = indexedDB.open('db', 2);
+
+            request.onsuccess = function(e) {
+                let db = this.result;
+
+                let transaction = db.transaction('games');
+                let store = transaction.objectStore('games');
+                let index = store.index('price_idx');
+
+                let request = index.openCursor(IDBKeyRange.lowerBound(1), 'prevunique');
+                
+                let counter = 0;
+                let isCursorAdvanced = false;
+
+                request.onsuccess = function(e) {
+                    let cursor = this.result;
+                    if(cursor) {
+                        let primaryKey = cursor.primaryKey;
+                        let key = cursor.key;
+                        let value = cursor.value;
+
+                        console.log(primaryKey, key, value);
+                        cursor.continue();
+
+                        // if(isCursorAdvanced) {
+                        //     console.log(primaryKey, key, value);
+                        //     cursor.continue();
+                        // } else {
+                        //     cursor.advance(1);
+                        //     isCursorAdvanced = true;
+                        // }
+                    } else {
+                        console.log('no more books in the store');
+                    }
+                }
+
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </script>
 </body>
