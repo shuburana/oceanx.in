@@ -32,28 +32,26 @@
     
     let container = document.getElementById('container');
 
+    let temp = {};
+    let counter = 0;
     function createTree(container, data) {
-    
-        function createTree2(container, data) {
-            let keys = Object.keys(data);;
+        let keys = Object.keys(data);;
+        temp[`${++counter}`] = keys[keys.length - 1];
 
-            if(!keys.length) return;
+        if(!keys.length) return;
 
-            container.textContent += '<ul>';
-            
-            for(let key in data) {
-                container.textContent += '<li>' + key;
+        container.textContent += '<ul>';
+        
+        let key;
+        for(key in data) {
+            container.textContent += '<li>' + key;
 
-                if(Object.keys(data[key]).length) createTree2(container, data[key]);
-                container.textContent += '</li>';
-            }
-
-            container.textContent += '</ul>';
-            return container.textContent;
+            if(Object.keys(data[key]).length) createTree(container, data[key]);
+            container.textContent += '</li>';
         }
 
-        container.innerHTML = createTree2(container, data)
-
+        container.textContent += '</ul>';
+        if(temp['1'] == key) container.innerHTML = container.textContent;
     }
 
     createTree(container, data);
