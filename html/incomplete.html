@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <style>
+    table {
+      border-collapse: collapse;
+    }
+
+    td,
+    th {
+      border: 1px solid black;
+      padding: 3px;
+      text-align: center;
+    }
+
+    th {
+      font-weight: bold;
+      background-color: #E6E6E6;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="calendar"></div>
+
+  <script>
+
+    function createCalendar(elem, year, month) {
+        
+        function getLastDateOfMonth(year, month, date) {
+            let d = new Date(2024, 1, 0);
+
+            // get the date in 'Wed Jan 31 2024 00:00:00 GMT+0530 (India Standard Time)' format
+
+            let lastDateOfMonth = d.toString();
+            lastDateOfMonth = Number(lastDateOfMonth[8] + lastDateOfMonth[9]);
+            return lastDateOfMonth;
+        }
+
+        let table = document.createElement('table');
+        let tr = document.createElement('tr');
+
+        let daysNames = ['MO', 'TU', 'WE', 'TH', 'FR', 'ST', 'SU']
+        
+        for(let day of daysNames) {
+            let th = document.createElement('th');
+            th.innerHTML = day;
+            tr.append(th)
+        }
+
+        table.append(tr);
+        elem.append(table);
+
+        // while(true) {
+        //     let tr = document.createElement('tr');
+
+        // }
+    }
+
+    createCalendar(calendar, 2012, 9);
+  </script>
+
+</body>
+</html>
