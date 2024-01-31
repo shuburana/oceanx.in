@@ -20,25 +20,30 @@
 
         "Tree": {
             "Huge": {
-            "sequoia": {},
-            "oak": {}
+                "sequoia": {},
+                "oak": {}
             },
             "Flowering": {
-            "apple tree": {},
-            "magnolia": {}
+                "apple tree": {},
+                "magnolia": {}
             }
         }
     };
     
     let container = document.getElementById('container');
 
+    let temp = {};
+    let counter = 0;
     function createTree(container, data) {
-        let keys = Object.keys(data);
+        let keys = Object.keys(data);;
+        temp[`${++counter}`] = keys[keys.length - 1];
+
         if(!keys.length) return;
 
         container.textContent += '<ul>';
-
-        for(let key in data) {
+        
+        let key;
+        for(key in data) {
             container.textContent += '<li>' + key;
 
             if(Object.keys(data[key]).length) createTree(container, data[key]);
@@ -46,10 +51,10 @@
         }
 
         container.textContent += '</ul>';
-        return container.textContent;
+        if(temp['1'] == key) container.innerHTML = container.textContent;
     }
 
-    container.innerHTML = createTree(container, data);
+    createTree(container, data);
     
     </script>
 
