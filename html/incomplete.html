@@ -22,9 +22,10 @@
     </head>
 
     <body>
-
-    <div id="calendar"></div>
-
+        
+        <div id="calendar"></div>
+        <p id="demo"></p>
+    
     <script>
 
     function createCalendar(elem, year, month) {
@@ -53,43 +54,52 @@
         table.append(tr);
         
         let date = new Date(year, month - 1);
-        
-        let day = date.getDay() - 1;
-        
+
+        let day = date.getDay();
+
         let lastDateOfMonth = getLastDateOfMonth(year, month);
         
         let dayCount = 1;
+        let counter = 0;
 
-        while(true) {
+        while(false) {
+            demo.innerHTML = counter++;
             if(dayCount > lastDateOfMonth) break;
             let tr = document.createElement('tr');
 
-            for(let i = 0; i < daysNames.length; i++) {
+            for(let i = 1; i <= daysNames.length; i++) {
                 let td = document.createElement('td');
                 tr.append(td);
 
                 if(i == day) {
                     td.append(dayCount);
-                    day = 7;
+                    day = null;
                     dayCount++;
                 } else {
-                    if(day == 7 && (dayCount <= lastDateOfMonth)) {
+                    if(day == null && (dayCount <= lastDateOfMonth)) {
                         td.append(dayCount);
                         dayCount++;
                     }
                 }
-                
             }
-
+            
             table.append(tr);
+        
         }
 
         elem.append(table);
 
     }
-
-    //createCalendar(calendar, 2012, 1)
     
+    // createCalendar(calendar, 2012, 1);
+
+    // for(let i = 1; i < 2; i++) {
+    //     let cal = document.createElement('div');
+    //     cal.id = `calendar${i}`;
+    //     // createCalendar(cal, 2012, i);
+    //     document.body.append(cal);
+    // }
+    // // console.log('hello, world');
     </script>
 
 </body>
