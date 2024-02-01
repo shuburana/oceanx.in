@@ -30,6 +30,9 @@
 
     function createCalendar(elem, year, month) {
         
+        if(!month) month = 1;
+        if(!year) return;
+
         function getLastDateOfMonth(year, month) {
             let d = new Date(year, month, 0);
 
@@ -92,7 +95,7 @@
 
     }
 
-    createCalendar(calendar, 2024, 1)
+    createCalendar(calendar)
 
     </script>
 
