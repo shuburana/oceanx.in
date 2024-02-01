@@ -19,7 +19,8 @@
         background-color: #E6E6E6;
         }
     </style>
-    </head>
+    
+</head>
 
     <body>
 
@@ -54,26 +55,29 @@
         
         let date = new Date(year, month - 1);
         
-        let day = date.getDay() - 1;
-        
+        let day = date.getDay();
+        if(day == 0) day = 7;
+
         let lastDateOfMonth = getLastDateOfMonth(year, month);
         
         let dayCount = 1;
+
+        let counter = 0;
 
         while(true) {
             if(dayCount > lastDateOfMonth) break;
             let tr = document.createElement('tr');
 
-            for(let i = 0; i < daysNames.length; i++) {
+            for(let i = 1; i <= daysNames.length; i++) {
                 let td = document.createElement('td');
                 tr.append(td);
 
                 if(i == day) {
                     td.append(dayCount);
-                    day = 7;
+                    day = null;
                     dayCount++;
                 } else {
-                    if(day == 7 && (dayCount <= lastDateOfMonth)) {
+                    if(day == null && (dayCount <= lastDateOfMonth)) {
                         td.append(dayCount);
                         dayCount++;
                     }
@@ -88,8 +92,8 @@
 
     }
 
-    //createCalendar(calendar, 2012, 1)
-    
+    createCalendar(calendar, 2024, 1)
+
     </script>
 
 </body>
