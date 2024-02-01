@@ -2,35 +2,35 @@
 <html>
 
 <head>
-  <style>
-    table {
-      border-collapse: collapse;
-    }
+    <style>
+        table {
+        border-collapse: collapse;
+        }
 
-    td,
-    th {
-      border: 1px solid black;
-      padding: 3px;
-      text-align: center;
-    }
+        td,
+        th {
+        border: 1px solid black;
+        padding: 3px;
+        text-align: center;
+        }
 
-    th {
-      font-weight: bold;
-      background-color: #E6E6E6;
-    }
-  </style>
-</head>
+        th {
+        font-weight: bold;
+        background-color: #E6E6E6;
+        }
+    </style>
+    </head>
 
-<body>
+    <body>
 
-  <div id="calendar"></div>
+    <div id="calendar"></div>
 
-  <script>
+    <script>
 
     function createCalendar(elem, year, month) {
         
-        function getLastDateOfMonth(year, month, date) {
-            let d = new Date(2024, 1, 0);
+        function getLastDateOfMonth(year, month) {
+            let d = new Date(year, month, 0);
 
             // get the date in 'Wed Jan 31 2024 00:00:00 GMT+0530 (India Standard Time)' format
 
@@ -51,16 +51,46 @@
         }
 
         table.append(tr);
+        
+        let date = new Date(year, month - 1);
+        
+        let day = date.getDay() - 1;
+        
+        let lastDateOfMonth = getLastDateOfMonth(year, month);
+        
+        let dayCount = 1;
+
+        while(true) {
+            if(dayCount > lastDateOfMonth) break;
+            let tr = document.createElement('tr');
+
+            for(let i = 0; i < daysNames.length; i++) {
+                let td = document.createElement('td');
+                tr.append(td);
+
+                if(i == day) {
+                    td.append(dayCount);
+                    day = 7;
+                    dayCount++;
+                } else {
+                    if(day == 7 && (dayCount <= lastDateOfMonth)) {
+                        td.append(dayCount);
+                        dayCount++;
+                    }
+                }
+                
+            }
+
+            table.append(tr);
+        }
+
         elem.append(table);
 
-        // while(true) {
-        //     let tr = document.createElement('tr');
-
-        // }
     }
 
-    createCalendar(calendar, 2012, 9);
-  </script>
+    //createCalendar(calendar, 2012, 1)
+    
+    </script>
 
 </body>
 </html>
