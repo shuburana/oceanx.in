@@ -44,5 +44,16 @@
 </div>
 </div>
 
+    <button id="demo">button</button>
+    
+    <script>
+        demo.onclick = e => {
+            console.log(e.button)
+        }
+
+        demo.oncontextmenu = e => {
+            console.log(e.button)
+        }
+    </script>
 </body>
 </html>
