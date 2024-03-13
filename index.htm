@@ -45,35 +45,14 @@
 </div>
 
     <button id="demo">button</button>
-    <div id="val">some value</div>
+    <div id="elem"></div>
     
-    <style>
-        #demo {
-            padding: 10px;
-        }
-    </style>
     <script>
         
-        let counter = 0;
+        demo.onpointerdown = function(e) {
+            elem.innerHTML = `pointerId: ${e.pointerId}, pointerType: ${e.pointerType}, isPrimary ${e.isPrimary}`;
+        };
 
-        function startHandler(params) {
-            this.style.backgroundColor = 'green';
-            this.style.color = 'white';            
-        }
-
-        function endHandler(params) {
-            this.style.backgroundColor = '';
-            this.style.color = '';         
-        }
-        
-        function moveHandler(params) {
-            val.innerHTML = counter++;
-        }
-
-        demo.onmousedown = demo.ontouchstart = startHandler;
-        demo.onmouseup = demo.ontouchend = endHandler;
-        demo.onmousemove = demo.ontouchmove = moveHandler;
-    
     </script>
 </body>
 </html>
