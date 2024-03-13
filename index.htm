@@ -62,13 +62,12 @@
         }
 
         function endHandler(params) {
-            this.style.backgroundColor = 'green';
-            this.style.color = 'white';            
+            this.style.backgroundColor = '';
+            this.style.color = '';         
         }
         
         function moveHandler(params) {
-            this.style.backgroundColor = 'green';
-            this.style.color = 'white';            
+            val.innerHTML = counter++;
         }
 
         demo.onmousedown = demo.ontouchstart = startHandler;
