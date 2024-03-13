@@ -55,7 +55,8 @@
     <script>
         
         demo.onpointerdown = function(e) {
-            elem.innerHTML = `pointerId: ${e.pointerId}, pointerType: ${e.pointerType}, isPrimary ${e.isPrimary}`;
+            if(e.type == 'mouse') this.style.color = 'white';
+            else this.style.color = 'red';
         };
 
     </script>
