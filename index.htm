@@ -56,19 +56,25 @@
         
         let counter = 0;
 
-        demo.onmousedown = function(e) {
+        function startHandler(params) {
             this.style.backgroundColor = 'green';
-            this.style.color = 'white';
+            this.style.color = 'white';            
         }
 
-        demo.onmouseup = function(e) {
-            this.style.backgroundColor = '';
-            this.style.color = '';
+        function endHandler(params) {
+            this.style.backgroundColor = 'green';
+            this.style.color = 'white';            
+        }
+        
+        function moveHandler(params) {
+            this.style.backgroundColor = 'green';
+            this.style.color = 'white';            
         }
 
-        demo.onmousemove = function(e) {
-            val.innerHTML = counter++;
-        }
+        demo.onmousedown = demo.ontouchstart = startHandler;
+        demo.onmouseup = demo.ontouchend = endHandler;
+        demo.onmousemove = demo.ontouchmove = moveHandler;
+    
     </script>
 </body>
 </html>
