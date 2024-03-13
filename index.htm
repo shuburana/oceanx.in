@@ -55,8 +55,9 @@
     <script>
         
         demo.onpointerdown = function(e) {
-            if(e.type == 'mouse') this.style.color = 'white';
+            if(e.pointerType == 'mouse') this.style.color = 'white';
             else this.style.color = 'red';
+            
         };
 
     </script>
