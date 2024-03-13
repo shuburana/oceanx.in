@@ -45,14 +45,29 @@
 </div>
 
     <button id="demo">button</button>
+    <div id="val"></div>
     
+    <style>
+        #demo {
+            padding: 10px;
+        }
+    </style>
     <script>
-        demo.onclick = e => {
-            console.log(e.button)
+        
+        let counter = 0;
+
+        demo.onmousedown = function(e) {
+            this.style.backgroundColor = 'green';
+            this.style.color = 'white';
         }
 
-        demo.oncontextmenu = e => {
-            console.log(e.button)
+        demo.onmouseup = function(e) {
+            this.style.backgroundColor = '';
+            this.style.color = '';
+        }
+
+        demo.onmousemove = function(e) {
+            val.innerHTML = counter++;
         }
     </script>
 </body>
