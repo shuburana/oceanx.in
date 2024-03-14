@@ -58,11 +58,11 @@
   <script>
 
     demo.onpointerdown = function(e) {
-      let pointerId = e.pointerId;
+      let isPrimary = e.isPrimary;
       this.setPointerCapture(e.pointerId);
 
       function onMouseMove(e) {
-        if(pointerId == 1) first.innerHTML = `first-  x: ${e.clientX}, y: ${e.clientY}`;
+        if(isPrimary) first.innerHTML = `first-  x: ${e.clientX}, y: ${e.clientY}`;
         else second.innerHTML = `second- x: ${e.clientX}, y: ${e.clientY}`;        
       }
 
