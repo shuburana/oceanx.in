@@ -65,30 +65,32 @@
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam eligendi sapiente maiores ratione excepturi impedit vitae molestiae autem modi, sequi voluptatem doloribus, deleniti eum, aliquam nihil obcaecati consectetur numquam velit.
     </p>
   <script>
+    let counter = 0;
+    // try {
 
-    try {
+    // demo.onpointerdown = function(e) {
+    //   let isPrimary = e.isPrimary;
+    //   this.setPointerCapture(e.pointerId);
 
-    demo.onpointerdown = function(e) {
-      let isPrimary = e.isPrimary;
-      this.setPointerCapture(e.pointerId);
+    //   function onMouseMove(e) {
+    //     if(isPrimary) first.innerHTML = `first-  x: ${e.clientX}, y: ${e.clientY}`;
+    //     else second.innerHTML = `second- x: ${e.clientX}, y: ${e.clientY}`;        
+    //   }
 
-      function onMouseMove(e) {
-        if(isPrimary) first.innerHTML = `first-  x: ${e.clientX}, y: ${e.clientY}`;
-        else second.innerHTML = `second- x: ${e.clientX}, y: ${e.clientY}`;        
-      }
+    //   this.addEventListener('mousemove', onMouseMove);
+    //   ball.onmouseup = function(e) {
+    //     this.removeEventListener('mousemove', onMouseMove);
+    //     this.onmouseup = null;
+    //   }
+    // }
 
-      this.addEventListener('mousemove', onMouseMove);
-
-      ball.onmouseup = function(e) {
-        this.removeEventListener('mousemove', onMouseMove);
-        this.onmouseup = null;
-      }
-    }
-
-    } catch(e) {
-        err.innerHTML = e + e.error;        
-    }   
+    // } catch(e) {
+    //     err.innerHTML = e + e.error;        
+    // }
     
+    demo.addEventListener('mouseup', function(e) {
+        first.innerHTML = counter++;
+    });
   </script>
 
 </body>
