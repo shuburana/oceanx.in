@@ -93,11 +93,13 @@
 
     demo.addEventListener('mousedown', e => {
         e.preventDefault();
+        e.stopPropagation();
     })
 
-    demo.addEventListener('mouseup', function(e) {
-        e.preventDefault();
+    demo.addEventListener('mouseup', function(e) {        
         first.innerHTML = counter++;
+        e.preventDefault();
+        e.stopPropagation();
     });
   
   </script>
