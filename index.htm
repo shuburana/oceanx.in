@@ -79,7 +79,7 @@
 
       this.addEventListener('mousemove', onMouseMove);
 
-      this.onmouseup = function(e) {
+      ball.onmouseup = function(e) {
         this.removeEventListener('mousemove', onMouseMove);
         this.onmouseup = null;
       }
