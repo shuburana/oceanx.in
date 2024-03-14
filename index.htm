@@ -54,8 +54,10 @@
   
   <p id="first"></p>
   <p id="second"></p>
-  
+  <p id="err"></p>
   <script>
+
+    try {
 
     demo.onpointerdown = function(e) {
       let isPrimary = e.isPrimary;
@@ -73,7 +75,11 @@
         this.onmouseup = null;
       }
     }
-
+    
+    } catch(e) {
+        err.innerHTML = e + e.error;        
+    }   
+    
   </script>
 
 </body>
