@@ -78,7 +78,7 @@
         this.setPointerCapture(e.pointerId);
 
         function onMouseMove(e) {
-            move.innerHTML = `isPrimary: ${isPrimary}`;
+            move.innerHTML = `isPrimary: ${++counter}`;
             if(isPrimary) first.innerHTML = `first-  x: ${e.clientX}, y: ${e.clientY}`;
             else second.innerHTML = `second- x: ${e.clientX}, y: ${e.clientY}`;        
         }
