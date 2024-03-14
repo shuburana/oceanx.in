@@ -75,20 +75,17 @@
         demo.onpointerdown = function(e) {
             let isPrimary = e.isPrimary;
             elem.innerHTML = `isPrimary: ${isPrimary}`;
-            
             this.setPointerCapture(e.pointerId);
 
-            function onPointerMove(e) {
-              move.innerHTML = `move: ${++counter}`;
-              if(isPrimary) first.innerHTML = `first-  x: ${e.clientX}, y: ${e.clientY}`;
-              else second.innerHTML = `second- x: ${e.clientX}, y: ${e.clientY}`;        
+            this.onpointermove = function(e) {
+                move.innerHTML = `move: ${++counter}`;
+                if(isPrimary) first.innerHTML = `first-  x: ${e.clientX}, y: ${e.clientY}`;
+                else second.innerHTML = `second- x: ${e.clientX}, y: ${e.clientY}`;                        
             }
 
-            this.addEventListener('pointermove', onPointerMove);
             demo.onpointerup = function(e) {
               count.innerHTML = ++counter;
-                              
-              this.removeEventListener('pointermove', onPointerMove);
+              this.onpointermove = null;
               this.onpointerup = null;
             }
         }
