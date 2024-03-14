@@ -49,17 +49,32 @@
             padding: 50px;
         }
     </style>
-    <button id="demo">button</button>
-    <div id="elem"></div>
-    
-    <script>
-        
-        demo.onpointerdown = function(e) {
-            if(e.pointerType == 'mouse') this.style.color = 'white';
-            else this.style.color = 'red';
-            
-        };
+  
+  <button id="demo">click on</button>
+  
+  <p id="first"></p>
+  <p id="second"></p>
+  
+  <script>
 
-    </script>
+    demo.onpointerdown = function(e) {
+      let pointerId = e.pointerId;
+      this.setPointerCapture(e.pointerId);
+
+      function onMouseMove(e) {
+        if(pointerId == 1) first.innerHTML = `first-  x: ${e.clientX}, y: ${e.clientY}`;
+        else second.innerHTML = `second- x: ${e.clientX}, y: ${e.clientY}`;        
+      }
+
+      this.addEventListener('mousemove', onMouseMove);
+
+      this.onmouseup = function(e) {
+        this.removeEventListener('mousemove', onMouseMove);
+        this.onmouseup = null;
+      }
+    }
+
+  </script>
+
 </body>
 </html>
