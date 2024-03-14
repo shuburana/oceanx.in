@@ -83,11 +83,11 @@
             else second.innerHTML = `second- x: ${e.clientX}, y: ${e.clientY}`;        
         }
 
-        this.addEventListener('mousemove', onMouseMove);
+        this.addEventListener('pointermove', onMouseMove);
         ball.onmouseup = function(e) {
             count.innerHTML = counter++;
 
-            this.removeEventListener('mousemove', onMouseMove);
+            this.removeEventListener('pointermove', onMouseMove);
             this.onmouseup = null;
         }
         }
