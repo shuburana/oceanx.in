@@ -88,9 +88,18 @@
     //     err.innerHTML = e + e.error;        
     // }
     
+    demo.ondragstart = () => false;
+    demo.ondragend = () => false;
+
+    demo.addEventListener('mousedown', e => {
+        e.preventDefault();
+    })
+
     demo.addEventListener('mouseup', function(e) {
+        e.preventDefault();
         first.innerHTML = counter++;
     });
+  
   </script>
 
 </body>
